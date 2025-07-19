@@ -1,67 +1,104 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const puzzleForm = document.getElementById('puzzle-form');
-    const q1Input = document.getElementById('q1');
-    const q2Input = document.getElementById('q2');
-    const q3Input = document.getElementById('q3');
-    const clueDiv = document.getElementById('clue');
-    const pesanUtamaDiv = document.getElementById('pesan-utama');
-    const puzzleDiv = document.getElementById('puzzle');
-    const bukaPesanButton = document.getElementById('buka-pesan');
-    const kodeRahasiaInput = document.getElementById('kode-rahasia');
+body {
+    font-family: sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
 
-    // --- BAGIAN YANG HARUS KAMU UBAH ---
-    const jawabanBenar = {
-        q1: 'bandung',   // Jawaban pertanyaan 1 (huruf kecil semua)
-        q2: 'kopi',      // Jawaban pertanyaan 2
-        q3: 'ayang'      // Jawaban pertanyaan 3
-    };
-    const kodeFinal = 'BKA'; // Huruf pertama dari 'Bandung', 'Kopi', 'Ayang'
-    // ------------------------------------
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 20px;
+}
 
-    puzzleForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Mencegah form reload halaman
+#pieces-container {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    border: 2px dashed #999;
+    background-color: #e0e0e0;
+}
 
-        // Reset style border
-        q1Input.classList.remove('salah');
-        q2Input.classList.remove('salah');
-        q3Input.classList.remove('salah');
+#board-container {
+    width: 400px;
+    height: 400px;
+    border: 2px solid #555;
+    display: grid;
+    /* Grid akan diatur oleh JavaScript */
+}
 
-        const jawabanUser = {
-            q1: q1Input.value.trim().toLowerCase(),
-            q2: q2Input.value.trim().toLowerCase(),
-            q3: q3Input.value.trim().toLowerCase()
-        };
+/* Style untuk kepingan puzzle */
+.puzzle-piece {
+    width: 100px; /* Akan diatur oleh JS */
+    height: 100px; /* Akan diatur oleh JS */
+    background-image: url('puzzle-image.jpg');
+    background-size: 400px 400px; /* Sama dengan ukuran board */
+    position: absolute;
+    border: 1px solid #fff;
+    cursor: grab;
+    transition: transform 0.2s;
+}
 
-        let semuaBenar = true;
+.puzzle-piece.dragging {
+    cursor: grabbing;
+    opacity: 0.7;
+    transform: scale(1.1);
+    z-index: 1000;
+}
 
-        if (jawabanUser.q1 !== jawabanBenar.q1) {
-            q1Input.classList.add('salah');
-            semuaBenar = false;
-        }
-        if (jawabanUser.q2 !== jawabanBenar.q2) {
-            q2Input.classList.add('salah');
-            semuaBenar = false;
-        }
-        if (jawabanUser.q3 !== jawabanBenar.q3) {
-            q3Input.classList.add('salah');
-            semuaBenar = false;
-        }
+/* Style untuk slot di papan */
+.board-slot {
+    border: 1px dotted #ccc;
+    background-color: rgba(255, 255, 255, 0.5);
+}
 
-        if (semuaBenar) {
-            clueDiv.classList.remove('hidden');
-            puzzleForm.querySelector('.tombol-aksi').classList.add('hidden'); // Sembunyikan tombol 'Cek Jawaban'
-        } else {
-            alert('Ada jawaban yang salah, coba lagi deh!');
-        }
-    });
+/* Style untuk Jendela Modal (Pertanyaan & QR) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
 
-    bukaPesanButton.addEventListener('click', () => {
-        const kodeUser = kodeRahasiaInput.value.trim().toUpperCase();
-        if (kodeUser === kodeFinal) {
-            puzzleDiv.classList.add('hidden');
-            pesanUtamaDiv.classList.remove('hidden');
-        } else {
-            alert('Kode Rahasianya salah, coba cek lagi petunjuknya!');
-        }
-    });
-});
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
