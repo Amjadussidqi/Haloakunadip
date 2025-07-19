@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap');
+
+body {
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: #333;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 1em;
+    text-align: center;
+}
+
+input[type="text"].salah {
+    border-color: #e74c3c;
+}
+
+.tombol-aksi {
+    padding: 12px 25px;
+    background-color: #ff7e5f;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.tombol-aksi:hover {
+    transform: scale(1.05);
+}
+
+#clue {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f8e9;
+    border-left: 5px solid #8bc34a;
+}
+
+.final-step {
+    margin-top: 15px;
+}
+
+#kode-rahasia {
+    text-transform: uppercase;
+}
+
+/* Style untuk pesan utama */
+#pesan-utama h2 {
+    color: #ff7e5f;
+}
+#pesan-utama p {
+    font-size: 1.1em;
+}
