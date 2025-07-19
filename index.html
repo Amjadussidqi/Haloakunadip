@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebuah Game Kecil Untukmu...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="puzzle">
+            <h1>Game Kecil Spesial</h1>
+            <p>Jawab beberapa pertanyaan ini dulu ya, baru ada kejutan!</p>
+            <form id="puzzle-form">
+                <div class="question">
+                    <label for="q1">Di kota mana kita pertama kali ketemu?</label>
+                    <input type="text" id="q1" autocomplete="off">
+                </div>
+                <div class="question">
+                    <label for="q2">Minuman yang paling sering kamu pesen kalo lagi sama aku?</label>
+                    <input type="text" id="q2" autocomplete="off">
+                </div>
+                <div class="question">
+                    <label for="q3">Apa nama panggilan sayangku buat kamu?</label>
+                    <input type="text" id="q3" autocomplete="off">
+                </div>
+                <button type="submit" class="tombol-aksi">Cek Jawaban</button>
+            </form>
+            <div id="clue" class="hidden">
+                <p>Bagus! Sekarang ambil <strong>huruf pertama</strong> dari setiap jawabanmu tadi dan gabungkan untuk jadi kode rahasia.</p>
+                <div class="final-step">
+                    <input type="text" id="kode-rahasia" placeholder="Masukin kodenya di sini...">
+                    <button id="buka-pesan" class="tombol-aksi">Buka Kejutan!</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="pesan-utama" class="hidden">
+            <h1>[Nama Pacar Kamu],</h1>
+            <h2>Kamu berhasil!</h2>
+            <p>Sama seperti kamu mecahin teka-teki ini, kamu juga udah mecahin kode hatiku.</p>
+            <p>Sekarang coba liat aku...</p>
+            <h2>Mau gak jadi pacarku?</h2>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
