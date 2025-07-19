@@ -1,104 +1,132 @@
-body {
-    font-family: sans-serif;
-    background-color: #f0f8ff;
-    color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // --- PENGATURAN ---
+    const ROWS = 4; // Ubah jadi 3 untuk puzzle 3x3, 4 untuk 4x4, dst.
+    const COLS = 4;
+    const IMAGE_SRC = 'puzzle-image.jpg'; // Nama file gambarmu
 
-#game-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
-    margin-top: 20px;
-}
+    // Jawaban yang benar untuk pertanyaan (buat jadi huruf kecil semua)
+    const CORRECT_ANSWER_1 = 'biru'; 
+    const CORRECT_ANSWER_2 = 'taman kota';
 
-#pieces-container {
-    width: 400px;
-    height: 400px;
-    position: relative;
-    border: 2px dashed #999;
-    background-color: #e0e0e0;
-}
+    // --- VARIABEL GLOBAL ---
+    const piecesContainer = document.getElementById('pieces-container');
+    const boardContainer = document.getElementById('board-container');
+    
+    const pieceWidth = piecesContainer.clientWidth / COLS;
+    const pieceHeight = piecesContainer.clientHeight / ROWS;
+    
+    let correctPieces = 0;
+    
+    // --- FUNGSI UTAMA ---
 
-#board-container {
-    width: 400px;
-    height: 400px;
-    border: 2px solid #555;
-    display: grid;
-    /* Grid akan diatur oleh JavaScript */
-}
+    function initializePuzzle() {
+        // Atur grid di papan
+        boardContainer.style.gridTemplateColumns = repeat(${COLS}, 1fr);
+        boardContainer.style.gridTemplateRows = repeat(${ROWS}, 1fr);
+        
+        // Buat kepingan dan slot papan
+        for (let i = 0; i < ROWS; i++) {
+            for (let j = 0; j < COLS; j++) {
+                // Buat kepingan puzzle
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.style.width = ${pieceWidth}px;
+                piece.style.height = ${pieceHeight}px;
+                piece.style.backgroundImage = url(${IMAGE_SRC});
+                piece.style.backgroundSize = ${COLS * 100}% ${ROWS * 100}%;
+                piece.style.backgroundPosition = -${j * pieceWidth}px -${i * pieceHeight}px;
+                
+                // Simpan posisi yang benar
+                piece.dataset.correctRow = i;
+                piece.dataset.correctCol = j;
+                
+                // Acak posisi awal kepingan
+                piece.style.left = ${Math.random() * (piecesContainer.clientWidth - pieceWidth)}px;
+                piece.style.top = ${Math.random() * (piecesContainer.clientHeight - pieceHeight)}px;
+                
+                // Tambahkan event drag
+                piece.draggable = true;
+                piece.addEventListener('dragstart', handleDragStart);
+                piecesContainer.appendChild(piece);
 
-/* Style untuk kepingan puzzle */
-.puzzle-piece {
-    width: 100px; /* Akan diatur oleh JS */
-    height: 100px; /* Akan diatur oleh JS */
-    background-image: url('puzzle-image.jpg');
-    background-size: 400px 400px; /* Sama dengan ukuran board */
-    position: absolute;
-    border: 1px solid #fff;
-    cursor: grab;
-    transition: transform 0.2s;
-}
+                // Buat slot di papan
+                const slot = document.createElement('div');
+                slot.classList.add('board-slot');
+                slot.dataset.row = i;
+                slot.dataset.col = j;
+                slot.addEventListener('dragover', handleDragOver);
+                slot.addEventListener('drop', handleDrop);
+                boardContainer.appendChild(slot);
+            }
+        }
+    }
 
-.puzzle-piece.dragging {
-    cursor: grabbing;
-    opacity: 0.7;
-    transform: scale(1.1);
-    z-index: 1000;
-}
+    // --- FUNGSI EVENT HANDLER ---
 
-/* Style untuk slot di papan */
-.board-slot {
-    border: 1px dotted #ccc;
-    background-color: rgba(255, 255, 255, 0.5);
-}
+    function handleDragStart(e) {
+        e.dataTransfer.setData('text/plain', JSON.stringify({
+            correctRow: e.target.dataset.correctRow,
+            correctCol: e.target.dataset.correctCol,
+        }));
+        // Sedikit delay agar class 'dragging' sempat ditambahkan
+        setTimeout(() => {
+            e.target.classList.add('dragging');
+        }, 0);
+    }
+    
+    function handleDragOver(e) {
+        e.preventDefault(); // Wajib agar event 'drop' bisa berjalan
+    }
+    
+    function handleDrop(e) {
+        e.preventDefault();
+        const droppedData = JSON.parse(e.dataTransfer.getData('text/plain'));
+        const draggedPiece = document.querySelector(.puzzle-piece[data-correct-row='${droppedData.correctRow}'][data-correct-col='${droppedData.correctCol}']);
+        
+        const targetSlot = e.target;
+        
+        // Cek jika kepingan diletakkan di slot yang benar
+        if (targetSlot.dataset.row === droppedData.correctRow && targetSlot.dataset.col === droppedData.correctCol) {
+            // Pindahkan kepingan ke slot dan non-aktifkan drag
+            targetSlot.appendChild(draggedPiece);
+            draggedPiece.style.position = 'static';
+            draggedPiece.draggable = false;
+            draggedPiece.classList.remove('dragging');
+            
+            correctPieces++;
+            // Cek jika puzzle sudah selesai
+            if (correctPieces === ROWS * COLS) {
+                setTimeout(() => showQuestionModal(), 500);
+            }
+        } else {
+             draggedPiece.classList.remove('dragging');
+        }
+    }
+    
+    function showQuestionModal() {
+        document.getElementById('question-modal').style.display = 'flex';
+    }
 
-/* Style untuk Jendela Modal (Pertanyaan & QR) */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
+    // --- LOGIKA PERTANYAAN DAN QR CODE ---
+    const questionForm = document.getElementById('question-form');
+    questionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const answer1 = document.getElementById('q1').value.trim().toLowerCase();
+        const answer2 = document.getElementById('q2').value.trim().toLowerCase();
+        
+        if (answer1 === CORRECT_ANSWER_1 && answer2 === CORRECT_ANSWER_2) {
+            document.getElementById('question-modal').style.display = 'none';
+            document.getElementById('qr-modal').style.display = 'flex';
+        } else {
+            alert('Jawaban salah, coba lagi!');
+        }
+    });
+    
+    document.getElementById('close-qr-btn').addEventListener('click', () => {
+         document.getElementById('qr-modal').style.display = 'none';
+    });
 
-.modal-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
 
-.modal-content h2 {
-    margin-top: 0;
-}
-
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.modal-content input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.modal-content button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    // --- MULAI PERMAINAN ---
+    initializePuzzle();
+});
