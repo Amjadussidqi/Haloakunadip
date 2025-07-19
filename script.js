@@ -3,7 +3,7 @@ const questionContainer = document.getElementById('question-container')
 const resultContainer = document.getElementById('result')
 const form = document.getElementById('quiz-form')
 
-const imageUrl = 'https://via.placeholder.com/300' // Ganti dengan gambar tentang kalian
+const imageUrl = 'https://nadhif10524076.my.id/wp-content/uploads/2025/07/Gambar-WhatsApp-2025-07-19-pukul-13.08.05_1a49b34f-scaled.jpg' // Ganti dengan gambar tentang kalian
 const correctAnswers = ['januari 2023', 'sushi', 'bali']
 
 let pieces = []
