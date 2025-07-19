@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PENGATURAN ---
     const ROWS = 4; // Ubah jadi 3 untuk puzzle 3x3, 4 untuk 4x4, dst.
     const COLS = 4;
-    const IMAGE_SRC = 'puzzle-image.jpg'; // Nama file gambarmu
+    const IMAGE_SRC = 'https://nadhif10524076.my.id/wp-content/uploads/2025/07/Gambar-WhatsApp-2025-07-19-pukul-13.08.05_1a49b34f-scaled.jpg'; // Nama file gambarmu
 
     // Jawaban yang benar untuk pertanyaan (buat jadi huruf kecil semua)
     const CORRECT_ANSWER_1 = 'biru'; 
