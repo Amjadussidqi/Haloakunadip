@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PENGATURAN ---
     const ROWS = 4; // Ubah jadi 3 untuk puzzle 3x3, 4 untuk 4x4, dst.
     const COLS = 4;
-    const IMAGE_SRC = 'https://nadhif10524076.my.id/wp-content/uploads/2025/07/Gambar-WhatsApp-2025-07-19-pukul-13.08.05_1a49b34f-scaled.jpg'; // Nama file gambarmu
+    const IMAGE_SRC = 'https://nadhif10524076.my.id/wp-content/uploads/2025/07/Gambar-WhatsApp-2025-07-19-pukul-13.08.05_1a49b34f-scaled.jpg'; // Ganti dengan nama file gambarmu
 
-    // Jawaban yang benar untuk pertanyaan (buat jadi huruf kecil semua)
+    // Ganti dengan jawaban yang benar (wajib huruf kecil semua)
     const CORRECT_ANSWER_1 = 'biru'; 
     const CORRECT_ANSWER_2 = 'taman kota';
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 piece.classList.add('puzzle-piece');
                 piece.style.width = ${pieceWidth}px;
                 piece.style.height = ${pieceHeight}px;
-                piece.style.backgroundImage = url(${IMAGE_SRC});
+                piece.style.backgroundImage = url('${IMAGE_SRC}');
                 piece.style.backgroundSize = ${COLS * 100}% ${ROWS * 100}%;
                 piece.style.backgroundPosition = -${j * pieceWidth}px -${i * pieceHeight}px;
                 
