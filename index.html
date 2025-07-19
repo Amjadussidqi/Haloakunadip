@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle Foto Spesial</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puzzle Tentang Kita</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-    <h1>Susun Foto Ini!</h1>
-    <p>Seret kepingan dari kiri dan letakkan di tempat yang benar di kanan.</p>
-
-    <div id="game-container">
-        <div id="pieces-container">
-            </div>
-        <div id="board-container">
-            </div>
-    </div>
-
-    <div id="question-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h2>Puzzle Selesai!</h2>
-            <p>Jawab 2 pertanyaan ini untuk melihat hadiahnya.</p>
-            <form id="question-form">
-                <label for="q1">Pertanyaan 1: Apa warna favorit kita?</label>
-                <input type="text" id="q1" name="q1" required>
-
-                <label for="q2">Pertanyaan 2: Di mana kita pertama kali bertemu?</label>
-                <input type="text" id="q2" name="q2" required>
-
-                <button type="submit">Kirim Jawaban</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="qr-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h2>Selamat! Ini Hadiahmu!</h2>
-            <img src="qr-code.png" alt="QR Code Hadiah">
-            <button id="close-qr-btn">Tutup</button>
-        </div>
-    </div>
-
-
-    <script src="script.js"></script>
+  <h1>Puzzle Tentang Kita</h1>
+  <div id="puzzle-container"></div>
+  <div id="question-container" class="hidden">
+    <h2>Jawab Pertanyaan Ini</h2>
+    <form id="quiz-form">
+      <div>
+        <label>Pertanyaan 1: Kapan kita pertama kali bertemu?</label>
+        <input type="text" name="q1" required />
+      </div>
+      <div>
+        <label>Pertanyaan 2: Makanan favorit kita bersama?</label>
+        <input type="text" name="q2" required />
+      </div>
+      <div>
+        <label>Pertanyaan 3: Tempat yang ingin kita kunjungi?</label>
+        <input type="text" name="q3" required />
+      </div>
+      <button type="submit">Kirim Jawaban</button>
+    </form>
+  </div>
+  <div id="result" class="hidden">
+    <h2>I Love U 💖</h2>
+    <canvas id="qr-code"></canvas>
+  </div>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
 </body>
 </html>
