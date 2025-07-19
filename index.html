@@ -1,37 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Puzzle Tentang Kita</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tes Kecocokan</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Puzzle Tentang Kita</h1>
-  <div id="puzzle-container"></div>
-  <div id="question-container" class="hidden">
-    <h2>Jawab Pertanyaan Ini</h2>
-    <form id="quiz-form">
-      <div>
-        <label>Pertanyaan 1: Kapan kita pertama kali bertemu?</label>
-        <input type="text" name="q1" required />
-      </div>
-      <div>
-        <label>Pertanyaan 2: Makanan favorit kita bersama?</label>
-        <input type="text" name="q2" required />
-      </div>
-      <div>
-        <label>Pertanyaan 3: Tempat yang ingin kita kunjungi?</label>
-        <input type="text" name="q3" required />
-      </div>
-      <button type="submit">Kirim Jawaban</button>
-    </form>
+  <div class="container" id="quiz">
+    <h1>Tes Kecocokan Kepribadian</h1>
+    <div id="questions"></div>
+    <button id="submitBtn" class="hidden" onclick="showFinal()">Lihat Hasil</button>
   </div>
-  <div id="result" class="hidden">
-    <h2>I Love U 💖</h2>
-    <canvas id="qr-code"></canvas>
+
+  <div class="container hidden" id="final">
+    <h2>Skormu... 100%! Tapi sebenernya...</h2>
+    <p>Aku cuma pengen nanya satu hal:</p>
+    <h1>Mau nggak jadi pacarku? ❤</h1>
+    <div class="buttons">
+      <button id="yesBtn">Mau</button>
+      <button id="noBtn">Enggak Mau</button>
+    </div>
+    <p id="result" class="hidden">Yey! Aku seneng banget! 💖</p>
   </div>
+
   <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
 </body>
 </html>
